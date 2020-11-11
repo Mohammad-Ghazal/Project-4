@@ -1,30 +1,58 @@
-const express = require('express'); 
+const express = require("express");
 //tack what ecxported from Router
 const mainRouter = express.Router();
 
+const articles_data = [
+  {
+    id: 1,
+    title: "eat fried chicken",
+    description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
+    author: "jouza",
+  },
+  {
+    id: 2,
+    title: "how to studey react",
+    description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
+    author: "abd",
+  },
+  {
+    id: 3,
+    title: "how to vote",
+    description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit",
+    author: "amr",
+  },
+];
+let last_ID = 3;
 
-const users = [
-{id:1,name:'ghazal',birth:'12/4/1995'},
-{id:2,name:'Jozaa',birth:'21/7/1994'},
-{id:3,name:'ali',birth:'15/5/1991'},
-{id:4,name:'khamil',birth:'22/9/1985'},
-{id:5,name:'zara',birth:'10/1/1999'},
+const getAllArticles = (req, res) => {
+  console.log("getAllArticles CALLED");
+  res.json(articles_data);
+};
 
-]
+const createNewArticle = (req, res) => {
+  // const newArtical = {
+  //   id: posts.length + 1,
+  //   title: req.body.title,
+  //   description: req.body.description,
+  //   author:req.body.author
 
-const getAllUsers=(req,res)=>{
-console.log('getAllUsers called')
-    //res.json(`users :  ${users}`)
-    res.json(users)
-}
+  // };
 
-const addNewUser=(req,res)=>{
-    console.log(req.body)
+  console.log("createNewArticle CALLED");
+  // console.log('REQ: ',req)
+  console.log("REQ.BODY: ", req.body);
+  // add a new key 'id' to an object
+  req.body.id = ++last_ID;
+  // Before adding the new article to the articles
+  articles_data.push(req.body);
+  res.json(articles_data);
+};
 
-    //req.args.
-   const newUser={id:users.length+1,name:req.body.name,birth:req.body.birth}
-   users.push(newUser)
-        res.json(newUser.name+' is now a user  ')
-    }
-//add to test
-module.exports={getAllUsers,addNewUser};
+
+
+module.exports = {
+  // "getAllArticles":getAllArticles,
+  getAllArticles,
+  createNewArticle,
+  changeArticleTitle,
+};

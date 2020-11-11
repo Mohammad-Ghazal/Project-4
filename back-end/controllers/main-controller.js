@@ -26,5 +26,5 @@ const addNewUser=(req,res)=>{
    users.push(newUser)
         res.json(newUser.name+' is now a user  ')
     }
-
+//add to test
 module.exports={getAllUsers,addNewUser};

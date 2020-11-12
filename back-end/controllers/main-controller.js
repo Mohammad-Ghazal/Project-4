@@ -106,8 +106,8 @@ const deleteArticleByAuthor = (req, res) => {
 console.log("deleteArticleByAuthor CALLED");
 
 articles_data.map((article,index) => {
-  if(article.auther==req.body.author)
-  articles_data.splice(index, 1)
+  if(article.author==req.body.author)
+    articles_data.splice(index, 1)
 });
 
 res.json(articles_data)

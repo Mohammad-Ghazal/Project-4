@@ -6,6 +6,7 @@ const {
   getAllArticles,
   createNewArticle,
   changeArticleTitleByID,
+  changeArticleAuthorById
 } = require("../controllers/main-controller");
 
 mainRouter.get("/", (req, res) => {
@@ -17,5 +18,7 @@ mainRouter.get("/articles", getAllArticles);
 mainRouter.post("/articles", createNewArticle);
 
 mainRouter.put("/articles/:id/:newTitle", changeArticleTitleByID);
+
+mainRouter.put("/articles/:id", changeArticleAuthorById);
 
 module.exports = mainRouter;

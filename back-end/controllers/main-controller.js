@@ -77,11 +77,22 @@ articles_data.map((article,index) => {
 
 });
 res.json(articles_data)
-
 };
+const changeArticleAuthorById = (req, res) => {
+console.log("changeArticleAuthorById CALLED");
+articles_data.map((article,index) => {
+    if(article.id==req.params.id)
+    articles_data[index].author=req.body.newAuthor
+
+});
+res.json(articles_data)
+};
+
+
 module.exports = {
   // "getAllArticles":getAllArticles,
   getAllArticles,
   createNewArticle,
   changeArticleTitleByID,
+  changeArticleAuthorById
 };

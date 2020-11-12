@@ -95,21 +95,26 @@ const deleteArticleById = (req, res) => {
 const deleteArticleByAuthor = (req, res) => {
   console.log("deleteArticleByAuthor CALLED");
 
-  //   articles_data1 = articles_data.filter((art) => {
-  //     if (art.author !== req.body.author) return art;
+  // articles_data_new = articles_data.filter((art) => {
+  //   if (art.author !== req.body.author)return art;
   //   });
-  //   res.json(articles_data1);
+  
+  let filltered_articles = articles_data.filter(
+    (art) => art.author !== req.body.author
+  );
+  articles_data.splice(0, articles_data.length, ...filltered_articles);
+  res.json(articles_data);
 
-  let haveToDeleteIndex = [];
-  articles_data.map((article, index) => {
-    if (article.author === req.body.author) {
-      haveToDeleteIndex.unshift(index);
-    }
-  });
+  // let haveToDeleteIndex = [];
+  // articles_data.map((article, index) => {
+  //   if (article.author === req.body.author) {
+  //     haveToDeleteIndex.unshift(index);
+  //   }
+  // });
 
-  haveToDeleteIndex.forEach((element) => {
-    articles_data.splice(element, 1);
-  });
+  // haveToDeleteIndex.forEach((element) => {
+  //   articles_data.splice(element, 1);
+  // });
 
   res.json(articles_data);
 };

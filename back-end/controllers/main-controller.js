@@ -88,11 +88,24 @@ articles_data.map((article,index) => {
 res.json(articles_data)
 };
 
+const deleteArticleById = (req, res) => {
+console.log("deleteArticleById CALLED");
 
+//articles_data=articles_data.filter(article =>article.id!=req.params.id)//can't change const like this
+//articles_data.filter(article =>article.id!=req.params.id) 
+
+articles_data.map((article,index) => {
+  if(article.id==req.params.id)
+  articles_data.splice(index, 1)
+});
+
+res.json(articles_data)
+};
 module.exports = {
   // "getAllArticles":getAllArticles,
   getAllArticles,
   createNewArticle,
   changeArticleTitleByID,
-  changeArticleAuthorById
+  changeArticleAuthorById,
+  deleteArticleById
 };

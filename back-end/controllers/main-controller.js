@@ -120,6 +120,21 @@ author: "jouza",
   res.json(articles_table);
 };
 const changeArticleAuthorById = (req, res) => {
+  let { newAuthor } = req.body;
+  console.log("changeArticleAuthorById CALLED");
+  {
+    const query = `UPDATE ${ARTICLES_TABLE}
+    SET ${AUTHOR} = "${newAuthor}"
+    WHERE ${ID} = ${req.params.id};`;
+
+    connection.query(query, (err, result) => {
+      if (err) throw err;
+      res.json(AUTHOR + " for id '" + req.params.id + "' edited sucsesfully");
+    });
+  }
+
+};
+const changeArticleAuthorById_Express = (req, res) => {
   console.log("changeArticleAuthorById CALLED");
   articles_table.map((article, index) => {
     if (article.id == req.params.id)
@@ -128,7 +143,6 @@ const changeArticleAuthorById = (req, res) => {
   });
   res.json(articles_table);
 };
-
 const deleteArticleById = (req, res) => {
   console.log("deleteArticleById CALLED");
 

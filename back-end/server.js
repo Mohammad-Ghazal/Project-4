@@ -1,11 +1,13 @@
 //tack what ecxported from express library
 const express = require('express'); 
+//const cors = require('cors');
+require('dotenv').config();
 //tack what ecxported from Router
 const mainRouter = require('./routes/main-route');
-//const cors = require('cors');
-//require('dotenv').config();
 
-// const db = require('./db');
+
+const db = require('./db');
+
 const app = express(); //run express i think (instantiation)
 
 // app.use(cors());

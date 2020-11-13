@@ -1,9 +1,13 @@
+
 const { compareSync } = require("bcrypt");
 const express = require("express");
+const connection = require('../db')
+
 //tack what ecxported from Router
 const mainRouter = express.Router();
 
-const articles_data = [
+
+let articles_table = [
   {
     id: 1,
     title: "eat fried chicken",
@@ -14,7 +18,7 @@ const articles_data = [
     id: 4,
     title: "how to studey react",
     description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
-    author: "jouza",
+    author: "amer",
   },
   {
     id: 7,
@@ -25,9 +29,10 @@ const articles_data = [
 ];
 let last_ID = 7;
 
+
 const getAllArticles = (req, res) => {
   console.log("getAllArticles CALLED");
-  res.json(articles_data);
+  res.json(articles_table);
 };
 
 const createNewArticle = (req, res) => {
@@ -37,8 +42,8 @@ const createNewArticle = (req, res) => {
   // add a new key 'id' to an object
   req.body.id = ++last_ID;
   // Before adding the new article to the articles
-  articles_data.push(req.body);
-  res.json(articles_data);
+  articles_table.push(req.body);
+  res.json(articles_table);
 };
 const changeArticleTitleByID = (req, res) => {
   // console.log("changeArticleTitleByID CALLED");
@@ -63,20 +68,20 @@ author: "jouza",
   //   //art1.title=req.params.newTitle;
   //   res.json(articles_data);
 
-  articles_data.map((article, index) => {
+  articles_table.map((article, index) => {
     if (article.id == req.params.id)
-      articles_data[index].title = req.params.newTitle;
+      articles_table[index].title = req.params.newTitle;
   });
-  res.json(articles_data);
+  res.json(articles_table);
 };
 const changeArticleAuthorById = (req, res) => {
   console.log("changeArticleAuthorById CALLED");
-  articles_data.map((article, index) => {
+  articles_table.map((article, index) => {
     if (article.id == req.params.id)
       // articles_data[index].author=req.body.newAuthor
       article.author = req.body.newAuthor;
   });
-  res.json(articles_data);
+  res.json(articles_table);
 };
 
 const deleteArticleById = (req, res) => {
@@ -85,11 +90,11 @@ const deleteArticleById = (req, res) => {
   //articles_data=articles_data.filter(article =>article.id!=req.params.id)//can't change const like this
   //articles_data.filter(article =>article.id!=req.params.id)
 
-  articles_data.map((article, index) => {
-    if (article.id == req.params.id) articles_data.splice(index, 1);
+  articles_table.map((article, index) => {
+    if (article.id == req.params.id) articles_table.splice(index, 1);
   });
 
-  res.json(articles_data);
+  res.json(articles_table);
 };
 
 const deleteArticleByAuthor = (req, res) => {
@@ -98,12 +103,11 @@ const deleteArticleByAuthor = (req, res) => {
   // articles_data_new = articles_data.filter((art) => {
   //   if (art.author !== req.body.author)return art;
   //   });
-  
-  let filltered_articles = articles_data.filter(
+
+  articles_table = articles_table.filter(
     (art) => art.author !== req.body.author
   );
-  articles_data.splice(0, articles_data.length, ...filltered_articles);
-  res.json(articles_data);
+ // articles_table.splice(0, articles_data.length, ...filltered_articles);
 
   // let haveToDeleteIndex = [];
   // articles_data.map((article, index) => {
@@ -116,7 +120,7 @@ const deleteArticleByAuthor = (req, res) => {
   //   articles_data.splice(element, 1);
   // });
 
-  res.json(articles_data);
+  res.json(articles_table);
 };
 
 module.exports = {

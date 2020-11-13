@@ -1,15 +1,16 @@
-
 const { compareSync } = require("bcrypt");
 const express = require("express");
 const { query } = require("../db");
-const connection = require('../db')
+const connection = require("../db");
 
-const ARTICLES_TABLE ="articles",TITLE="title"
-      ,DESCRIPTION= "description",AUTHOR="author"
+const ARTICLES_TABLE = "articles",
+  TITLE = "title",
+  DESCRIPTION = "description",
+  AUTHOR = "author",
+  ID = "id";
 
 //tack what ecxported from Router
 const mainRouter = express.Router();
-
 
 let articles_table = [
   {
@@ -33,49 +34,37 @@ let articles_table = [
 ];
 let last_ID = 7;
 
-
-
 const getAllArticles = (req, res) => {
   console.log("getAllArticles CALLED");
-  const query=`SELECT * FROM ${ARTICLES_TABLE}`
-  connection.query(query,(err,result)=>{
+  const query = `SELECT * FROM ${ARTICLES_TABLE}`;
+  connection.query(query, (err, result) => {
     if (err) throw err;
-    console.log('RESULT: ',result);
-    
-    res.json(result);
+    console.log("RESULT: ", result);
 
-  }
-  
-  
-  )
+    res.json(result);
+  });
 };
 const getAllArticles_Express = (req, res) => {
   console.log("getAllArticles CALLED");
   res.json(articles_table);
 };
 
-
-
 const createNewArticle = (req, res) => {
   {
-    let {title,author,description} = req.body;
-  console.log("createNewArticle CALLED");
-  console.log(TITLE,AUTHOR,DESCRIPTION,title,author,description);
-  
-  const query=`INSERT INTO ${ARTICLES_TABLE} (${TITLE},${AUTHOR},${DESCRIPTION}) VALUES ("${title}","${author}","${description}"); `
-  
+    let { title, author, description } = req.body;
+    console.log("createNewArticle CALLED");
+    console.log(TITLE, AUTHOR, DESCRIPTION, title, author, description);
 
-  connection.query(query,(err,result)=>{
-    if (err) throw err;
-    console.log('RESULT: ',result);
-    
-    res.json(result);
+    const query = `INSERT INTO ${ARTICLES_TABLE} (${TITLE},${AUTHOR},${DESCRIPTION}) VALUES ("${title}","${author}","${description}"); `;
 
+    connection.query(query, (err, result) => {
+      if (err) throw err;
+      console.log("RESULT: ", result);
+
+      res.json(result);
+    });
   }
-  
-  
-  )
-};}
+};
 const createNewArticle_Express = (req, res) => {
   console.log("createNewArticle CALLED");
   // console.log('REQ: ',req)
@@ -87,6 +76,21 @@ const createNewArticle_Express = (req, res) => {
   res.json(articles_table);
 };
 const changeArticleTitleByID = (req, res) => {
+  console.log("changeArticleTitleByID CALLED");
+
+  {
+    const query = `UPDATE ${ARTICLES_TABLE}
+    SET ${TITLE} = "${req.params.newTitle}"
+    WHERE ${ID} = "${req.params.id}";`;
+
+    connection.query(query, (err, result) => {
+      if (err) throw err;
+      res.json(TITLE + " for id '" + req.params.id + "' edited sucsesfully");
+    });
+  }
+};
+
+const changeArticleTitleByID_Express = (req, res) => {
   // console.log("changeArticleTitleByID CALLED");
   // console.log("req.params.newTitle: ", req.params.newTitle);
   // console.log("areq.params.id: ", req.params.id);
@@ -148,7 +152,7 @@ const deleteArticleByAuthor = (req, res) => {
   articles_table = articles_table.filter(
     (art) => art.author !== req.body.author
   );
- // articles_table.splice(0, articles_data.length, ...filltered_articles);
+  // articles_table.splice(0, articles_data.length, ...filltered_articles);
 
   // let haveToDeleteIndex = [];
   // articles_data.map((article, index) => {

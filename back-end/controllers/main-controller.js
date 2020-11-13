@@ -122,17 +122,15 @@ author: "jouza",
 const changeArticleAuthorById = (req, res) => {
   let { newAuthor } = req.body;
   console.log("changeArticleAuthorById CALLED");
-  {
-    const query = `UPDATE ${ARTICLES_TABLE}
+
+  const query = `UPDATE ${ARTICLES_TABLE}
     SET ${AUTHOR} = "${newAuthor}"
     WHERE ${ID} = ${req.params.id};`;
 
-    connection.query(query, (err, result) => {
-      if (err) throw err;
-      res.json(AUTHOR + " for id '" + req.params.id + "' edited sucsesfully");
-    });
-  }
-
+  connection.query(query, (err, result) => {
+    if (err) throw err;
+    res.json(AUTHOR + " for id '" + req.params.id + "' edited sucsesfully");
+  });
 };
 const changeArticleAuthorById_Express = (req, res) => {
   console.log("changeArticleAuthorById CALLED");
@@ -143,7 +141,16 @@ const changeArticleAuthorById_Express = (req, res) => {
   });
   res.json(articles_table);
 };
-const deleteArticleById = (req, res) => {
+const deleteArticleById = (req, res) => { //hard way
+  console.log("deleteArticleById CALLED");
+  let query = `DELETE FROM ${ARTICLES_TABLE} WHERE  ${ID} = ${req.params.id};`;
+
+  connection.query(query, (err, result) => {
+    if (err) throw err;
+    res.json("articles for id '" + req.params.id + "' deleted sucsesfully");
+  });
+};
+const deleteArticleById_Express = (req, res) => {
   console.log("deleteArticleById CALLED");
 
   //articles_data=articles_data.filter(article =>article.id!=req.params.id)//can't change const like this
@@ -155,7 +162,6 @@ const deleteArticleById = (req, res) => {
 
   res.json(articles_table);
 };
-
 const deleteArticleByAuthor = (req, res) => {
   console.log("deleteArticleByAuthor CALLED");
 

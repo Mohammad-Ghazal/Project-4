@@ -147,7 +147,7 @@ const deleteArticleById = (req, res) => { //hard way
 
   connection.query(query, (err, result) => {
     if (err) throw err;
-    res.json("articles for id '" + req.params.id + "' deleted sucsesfully");
+    res.json("article for id '" + req.params.id + "' deleted sucsesfully");
   });
 };
 const deleteArticleById_Express = (req, res) => {
@@ -162,7 +162,16 @@ const deleteArticleById_Express = (req, res) => {
 
   res.json(articles_table);
 };
-const deleteArticleByAuthor = (req, res) => {
+const deleteArticleByAuthor = (req, res) => {//hard way
+  console.log("deleteArticleByAuthor CALLED");
+  let query = `DELETE FROM ${ARTICLES_TABLE} WHERE  ${AUTHOR} = "${req.body.author}";`;
+
+  connection.query(query, (err, result) => {
+    if (err) throw err;
+    res.json("article/s for auther '" + req.body.author + "' deleted sucsesfully");
+  });
+};
+const deleteArticleByAuthor_express = (req, res) => {
   console.log("deleteArticleByAuthor CALLED");
 
   // articles_data_new = articles_data.filter((art) => {
@@ -187,7 +196,6 @@ const deleteArticleByAuthor = (req, res) => {
 
   res.json(articles_table);
 };
-
 module.exports = {
   // "getAllArticles":getAllArticles,
   getAllArticles,

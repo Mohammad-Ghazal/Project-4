@@ -1,7 +1,10 @@
 
 const { compareSync } = require("bcrypt");
 const express = require("express");
+const { query } = require("../db");
 const connection = require('../db')
+
+const MAIN_TABLE ='articles';
 
 //tack what ecxported from Router
 const mainRouter = express.Router();
@@ -31,6 +34,20 @@ let last_ID = 7;
 
 
 const getAllArticles = (req, res) => {
+  console.log("getAllArticles CALLED");
+  const query=`SELECT * FROM ${MAIN_TABLE}`
+  connection.query(query,(err,result)=>{
+    if (err) throw err;
+    console.log('RESULT: ',result);
+    
+    res.json(result);
+
+  }
+  
+  
+  )
+};
+const getAllArticles_Express = (req, res) => {
   console.log("getAllArticles CALLED");
   res.json(articles_table);
 };

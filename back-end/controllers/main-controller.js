@@ -4,7 +4,8 @@ const express = require("express");
 const { query } = require("../db");
 const connection = require('../db')
 
-const MAIN_TABLE ='articles';
+const ARTICLES_TABLE ="articles",TITLE="title"
+      ,DESCRIPTION= "description",AUTHOR="author"
 
 //tack what ecxported from Router
 const mainRouter = express.Router();
@@ -33,9 +34,10 @@ let articles_table = [
 let last_ID = 7;
 
 
+
 const getAllArticles = (req, res) => {
   console.log("getAllArticles CALLED");
-  const query=`SELECT * FROM ${MAIN_TABLE}`
+  const query=`SELECT * FROM ${ARTICLES_TABLE}`
   connection.query(query,(err,result)=>{
     if (err) throw err;
     console.log('RESULT: ',result);
@@ -52,7 +54,29 @@ const getAllArticles_Express = (req, res) => {
   res.json(articles_table);
 };
 
+
+
 const createNewArticle = (req, res) => {
+  {
+    let {title,author,description} = req.body;
+  console.log("createNewArticle CALLED");
+  console.log(TITLE,AUTHOR,DESCRIPTION,title,author,description);
+  
+  const query=`INSERT INTO ${ARTICLES_TABLE} (${TITLE},${AUTHOR},${DESCRIPTION}) VALUES ("${title}","${author}","${description}"); `
+  
+
+  connection.query(query,(err,result)=>{
+    if (err) throw err;
+    console.log('RESULT: ',result);
+    
+    res.json(result);
+
+  }
+  
+  
+  )
+};}
+const createNewArticle_Express = (req, res) => {
   console.log("createNewArticle CALLED");
   // console.log('REQ: ',req)
   console.log("REQ.BODY: ", req.body);

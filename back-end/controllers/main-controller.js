@@ -166,10 +166,12 @@ const deleteArticleById_Express = (req, res) => {
 
   res.json(articles_table);
 };
-const deleteArticleByAuthor = (req, res) => {//hard way
+const deleteArticleByAuthor = (req, res) => {
   console.log("deleteArticleByAuthor CALLED");
-  let query = `DELETE FROM ${ARTICLES_TABLE} WHERE  ${AUTHOR} = "${req.body.author}";`;
-
+  //const query = `DELETE FROM ${ARTICLES_TABLE} WHERE  ${AUTHOR} = "${req.body.author}";`;//hard way
+  const query = `UPDATE ${ARTICLES_TABLE}
+  SET ${IS_DELETED} = 1
+  WHERE ${AUTHOR} = "${req.body.author}";`;
   connection.query(query, (err, result) => {
     if (err) throw err;
     res.json("article/s for auther '" + req.body.author + "' deleted sucsesfully");

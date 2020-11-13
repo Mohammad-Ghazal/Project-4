@@ -7,7 +7,8 @@ const ARTICLES_TABLE = "articles",
   TITLE = "title",
   DESCRIPTION = "description",
   AUTHOR = "author",
-  ID = "id";
+  ID = "id",
+  IS_DELETED="is_deleted" ;
 
 //tack what ecxported from Router
 const mainRouter = express.Router();
@@ -141,10 +142,13 @@ const changeArticleAuthorById_Express = (req, res) => {
   });
   res.json(articles_table);
 };
-const deleteArticleById = (req, res) => { //hard way
+const deleteArticleById = (req, res) => { 
+ 
   console.log("deleteArticleById CALLED");
-  let query = `DELETE FROM ${ARTICLES_TABLE} WHERE  ${ID} = ${req.params.id};`;
-
+  //const query = `DELETE FROM ${ARTICLES_TABLE} WHERE  ${ID} = ${req.params.id};`; //hard way
+  const query = `UPDATE ${ARTICLES_TABLE}
+  SET ${IS_DELETED} = 1
+  WHERE ${ID} = ${req.params.id};`;
   connection.query(query, (err, result) => {
     if (err) throw err;
     res.json("article for id '" + req.params.id + "' deleted sucsesfully");

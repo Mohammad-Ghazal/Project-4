@@ -9,7 +9,7 @@ const ARTICLES_TABLE = "articles",
   AUTHOR = "author",
   ID = "id",
   IS_DELETED = "is_deleted";
-
+  
 //tack what ecxported from Router
 const mainRouter = express.Router();
 
@@ -219,6 +219,21 @@ const getAllArticlesByAuthor = (req, res) => {
     res.json(result);
   });
 };
+
+const changeArticleDescriptionById = (req, res) => {
+  let { newDescription } = req.body;
+  console.log("changeArticleDescriptionById CALLED");
+console.log('newDescription : ',newDescription);
+
+  const query = `UPDATE ${ARTICLES_TABLE}
+    SET ${DESCRIPTION} = "${newDescription}"
+    WHERE ${ID} = ${req.params.id};`;
+
+  connection.query(query, (err, result) => {
+    if (err) throw err;
+    res.json(DESCRIPTION + " for id '" + req.params.id + "' edited sucsesfully");
+  });
+};
 module.exports = {
   // "getAllArticles":getAllArticles,
   getAllArticles,
@@ -228,7 +243,8 @@ module.exports = {
   deleteArticleById,
   deleteArticleByAuthor,
   recoveryArticleById,
-  getAllArticlesByAuthor
+  getAllArticlesByAuthor,
+  changeArticleDescriptionById
 };
 
 // function User(firstName,lastName,birth){

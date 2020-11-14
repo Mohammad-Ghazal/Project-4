@@ -11,7 +11,8 @@ const {
   deleteArticleById,
   deleteArticleByAuthor,
   recoveryArticleById,
-  getAllArticlesByAuthor
+  getAllArticlesByAuthor,
+  changeArticleDescriptionById
 } = require("../controllers/main-controller");
 
 mainRouter.get("/", (req, res) => {
@@ -24,7 +25,7 @@ mainRouter.get("/articlesByAuther/:author", getAllArticlesByAuthor);
 mainRouter.post("/articles", createNewArticle);
 
 mainRouter.put("/articles/:id/:newTitle", changeArticleTitleByID);
-
+mainRouter.put("/articles/:id", changeArticleDescriptionById);
 mainRouter.put("/articles/:id", changeArticleAuthorById);
 
 mainRouter.delete("/articles/:id", deleteArticleById);

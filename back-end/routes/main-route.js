@@ -10,7 +10,8 @@ const {
   changeArticleAuthorById,
   deleteArticleById,
   deleteArticleByAuthor,
-  recoveryArticleById
+  recoveryArticleById,
+  getAllArticlesByAuthor
 } = require("../controllers/main-controller");
 
 mainRouter.get("/", (req, res) => {
@@ -18,6 +19,7 @@ mainRouter.get("/", (req, res) => {
 });
 
 mainRouter.get("/articles", getAllArticles);
+mainRouter.get("/articlesByAuther/:author", getAllArticlesByAuthor);
 
 mainRouter.post("/articles", createNewArticle);
 
@@ -28,5 +30,6 @@ mainRouter.put("/articles/:id", changeArticleAuthorById);
 mainRouter.delete("/articles/:id", deleteArticleById);
 mainRouter.delete("/articles/", deleteArticleByAuthor);
 mainRouter.put("/articlesre/:id", recoveryArticleById);
+
 
 module.exports = mainRouter;

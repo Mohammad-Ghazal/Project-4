@@ -36,7 +36,7 @@ let articles_table = [
 let last_ID = 7;
 const getAllArticles = (req, res) => {
   console.log("getAllArticles CALLED");
-  const query = `SELECT * FROM ${ARTICLES_TABLE}`;
+  const query = `SELECT * FROM ${ARTICLES_TABLE} WHERE ${IS_DELETED} = 0 `;
   connection.query(query, (err, result) => {
     if (err) throw err;
     res.json(result);
@@ -161,6 +161,7 @@ const deleteArticleById_Express = (req, res) => {
 const deleteArticleByAuthor = (req, res) => {
   console.log("deleteArticleByAuthor CALLED");
   //const query = `DELETE FROM ${ARTICLES_TABLE} WHERE  ${AUTHOR} = "${req.body.author}";`;//hard way
+  //SOFT DELETE
   const query = `UPDATE ${ARTICLES_TABLE}
   SET ${IS_DELETED} = 1
   WHERE ${AUTHOR} = "${req.body.author}";`;
@@ -203,7 +204,19 @@ const recoveryArticleById = (req, res) => {
   WHERE ${ID} = ${req.params.id};`;
   connection.query(query, (err, result) => {
     if (err) throw err;
+   
+    console.log(result);
     res.json("the article id '" + req.params.id + "'recovered sucsesfully");
+  });
+};
+
+const getAllArticlesByAuthor = (req, res) => {
+  console.log("getAllArticlesByAuthor CALLED");
+  const query = `SELECT * FROM ${ARTICLES_TABLE}
+   WHERE ${IS_DELETED} = 0 AND ${AUTHOR}= "${req.params.author}"`;
+  connection.query(query, (err, result) => {
+    if (err) throw err;
+    res.json(result);
   });
 };
 module.exports = {
@@ -214,7 +227,8 @@ module.exports = {
   changeArticleAuthorById,
   deleteArticleById,
   deleteArticleByAuthor,
-  recoveryArticleById
+  recoveryArticleById,
+  getAllArticlesByAuthor
 };
 
 // function User(firstName,lastName,birth){

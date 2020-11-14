@@ -8,7 +8,7 @@ const ARTICLES_TABLE = "articles",
   DESCRIPTION = "description",
   AUTHOR = "author",
   ID = "id",
-  IS_DELETED="is_deleted" ;
+  IS_DELETED = "is_deleted";
 
 //tack what ecxported from Router
 const mainRouter = express.Router();
@@ -34,14 +34,11 @@ let articles_table = [
   },
 ];
 let last_ID = 7;
-
 const getAllArticles = (req, res) => {
   console.log("getAllArticles CALLED");
   const query = `SELECT * FROM ${ARTICLES_TABLE}`;
   connection.query(query, (err, result) => {
     if (err) throw err;
-    console.log("RESULT: ", result);
-
     res.json(result);
   });
 };
@@ -49,7 +46,6 @@ const getAllArticles_Express = (req, res) => {
   console.log("getAllArticles CALLED");
   res.json(articles_table);
 };
-
 const createNewArticle = (req, res) => {
   {
     let { title, author, description } = req.body;
@@ -60,8 +56,6 @@ const createNewArticle = (req, res) => {
 
     connection.query(query, (err, result) => {
       if (err) throw err;
-      console.log("RESULT: ", result);
-
       res.json(result);
     });
   }
@@ -90,7 +84,6 @@ const changeArticleTitleByID = (req, res) => {
     });
   }
 };
-
 const changeArticleTitleByID_Express = (req, res) => {
   // console.log("changeArticleTitleByID CALLED");
   // console.log("req.params.newTitle: ", req.params.newTitle);
@@ -142,8 +135,7 @@ const changeArticleAuthorById_Express = (req, res) => {
   });
   res.json(articles_table);
 };
-const deleteArticleById = (req, res) => { 
- 
+const deleteArticleById = (req, res) => {
   console.log("deleteArticleById CALLED");
   //const query = `DELETE FROM ${ARTICLES_TABLE} WHERE  ${ID} = ${req.params.id};`; //hard way
   const query = `UPDATE ${ARTICLES_TABLE}
@@ -174,7 +166,9 @@ const deleteArticleByAuthor = (req, res) => {
   WHERE ${AUTHOR} = "${req.body.author}";`;
   connection.query(query, (err, result) => {
     if (err) throw err;
-    res.json("article/s for auther '" + req.body.author + "' deleted sucsesfully");
+    res.json(
+      "article/s for auther '" + req.body.author + "' deleted sucsesfully"
+    );
   });
 };
 const deleteArticleByAuthor_express = (req, res) => {
@@ -202,6 +196,16 @@ const deleteArticleByAuthor_express = (req, res) => {
 
   res.json(articles_table);
 };
+const recoveryArticleById = (req, res) => {
+  console.log("recoveryArticleById CALLED");
+  const query = `UPDATE ${ARTICLES_TABLE}
+  SET ${IS_DELETED} = 0
+  WHERE ${ID} = ${req.params.id};`;
+  connection.query(query, (err, result) => {
+    if (err) throw err;
+    res.json("the article id '" + req.params.id + "'recovered sucsesfully");
+  });
+};
 module.exports = {
   // "getAllArticles":getAllArticles,
   getAllArticles,
@@ -210,6 +214,7 @@ module.exports = {
   changeArticleAuthorById,
   deleteArticleById,
   deleteArticleByAuthor,
+  recoveryArticleById
 };
 
 // function User(firstName,lastName,birth){

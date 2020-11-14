@@ -9,7 +9,8 @@ const {
   changeArticleTitleByID,
   changeArticleAuthorById,
   deleteArticleById,
-  deleteArticleByAuthor
+  deleteArticleByAuthor,
+  recoveryArticleById
 } = require("../controllers/main-controller");
 
 mainRouter.get("/", (req, res) => {
@@ -26,6 +27,6 @@ mainRouter.put("/articles/:id", changeArticleAuthorById);
 
 mainRouter.delete("/articles/:id", deleteArticleById);
 mainRouter.delete("/articles/", deleteArticleByAuthor);
-
+mainRouter.put("/articlesre/:id", recoveryArticleById);
 
 module.exports = mainRouter;

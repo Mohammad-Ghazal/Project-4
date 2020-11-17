@@ -9,7 +9,7 @@ const ARTICLES_TABLE = "articles",
   AUTHOR = "author",
   ID = "id",
   IS_DELETED = "is_deleted";
-  
+
 //tack what ecxported from Router
 const mainRouter = express.Router();
 
@@ -52,7 +52,8 @@ const createNewArticle = (req, res) => {
     console.log("createNewArticle CALLED");
     console.log(TITLE, AUTHOR, DESCRIPTION, title, author, description);
 
-    const query = `INSERT INTO ${ARTICLES_TABLE} (${TITLE},${AUTHOR},${DESCRIPTION}) VALUES ("${title}","${author}","${description}"); `;
+    const query = `INSERT INTO ${ARTICLES_TABLE} (${TITLE},${AUTHOR},${DESCRIPTION})
+     VALUES ("${title}","${author}","${description}"); `;
 
     connection.query(query, (err, result) => {
       if (err) throw err;
@@ -204,12 +205,11 @@ const recoveryArticleById = (req, res) => {
   WHERE ${ID} = ${req.params.id};`;
   connection.query(query, (err, result) => {
     if (err) throw err;
-   
+
     console.log(result);
     res.json("the article id '" + req.params.id + "'recovered sucsesfully");
   });
 };
-
 const getAllArticlesByAuthor = (req, res) => {
   console.log("getAllArticlesByAuthor CALLED");
   const query = `SELECT * FROM ${ARTICLES_TABLE}
@@ -219,11 +219,10 @@ const getAllArticlesByAuthor = (req, res) => {
     res.json(result);
   });
 };
-
 const changeArticleDescriptionById = (req, res) => {
   let { newDescription } = req.body;
   console.log("changeArticleDescriptionById CALLED");
-console.log('newDescription : ',newDescription);
+  console.log("newDescription : ", newDescription);
 
   const query = `UPDATE ${ARTICLES_TABLE}
     SET ${DESCRIPTION} = "${newDescription}"
@@ -231,7 +230,9 @@ console.log('newDescription : ',newDescription);
 
   connection.query(query, (err, result) => {
     if (err) throw err;
-    res.json(DESCRIPTION + " for id '" + req.params.id + "' edited sucsesfully");
+    res.json(
+      DESCRIPTION + " for id '" + req.params.id + "' edited sucsesfully"
+    );
   });
 };
 module.exports = {
@@ -244,7 +245,7 @@ module.exports = {
   deleteArticleByAuthor,
   recoveryArticleById,
   getAllArticlesByAuthor,
-  changeArticleDescriptionById
+  changeArticleDescriptionById,
 };
 
 // function User(firstName,lastName,birth){

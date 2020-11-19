@@ -4,19 +4,23 @@ import axios from "axios";
 import Item from "./Item";
 import NewItem from "./NewItem";
 export default function App() {
-  const [articales, setArticales] = useState([]);
+  const [articales, setArticales] = useState([])
   const [count, setCount] = useState(0);
 
   const addOne = () => {
     setCount(count + 1);
   };
+const renderArticales=articales.map((art)=>{
+  return <Item  artical = {art}/>
+});
 
+  
   const getAllArticles = () => {
     axios
       .get(`http://localhost:5000/articles`)
       .then((responce) => {
         console.log("data: " + responce.data);
-        setArticales(responce.data);
+      setArticales(responce.data)
       })
       .catch((err) => {
         console.log("ERR: ", err);
@@ -26,11 +30,12 @@ export default function App() {
   return (
     <div className="app">
       <h3>App</h3>
+      <h1>Conter : : : {count} </h1>
       <button onClick={getAllArticles}>Get articales</button>
-      <button onClick={setCount}>set count</button>
+      <button onClick={addOne}>plus one</button>
 
       <NewItem />
-      <Item />
+      {renderArticales}
     </div>
   );
   // render(){

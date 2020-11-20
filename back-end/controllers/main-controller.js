@@ -57,7 +57,7 @@ const createNewArticle = (req, res) => {
 
     connection.query(query, (err, result) => {
       if (err) throw err;
-      res.json(result);
+      res.json('Success add new article');
     });
   }
 };

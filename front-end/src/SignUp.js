@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 let id = 0;
-const USER_NAME = "user_name",
-  PASSWORD = "password",
-  AGE = "age";
+// const USER_NAME = "user_name",
+//   PASSWORD = "password",
+//   AGE = "age";
 export default function SignUp(props) {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -19,7 +19,7 @@ export default function SignUp(props) {
     else {
       
       let data = {
-        user_name: userName,
+        user_Name: userName,
         password: password,
         age: userAge
       };

@@ -242,12 +242,12 @@ const changeArticleDescriptionById = (req, res) => {
 
 const createNewUser = (req, res) => {
   {
-    let { userName, password, age } = req.body;
+    let {user_Name, password, age } = req.body;
     console.log("createNewUser CALLED");
-    console.log(USER_NAME, PASSWORD, AGE,  userName, password, age );
+    console.log(USER_NAME, PASSWORD, AGE, user_Name, password, age );
 
     const query = `INSERT INTO ${USERS_TABLE} (${USER_NAME},${PASSWORD},${AGE})
-     VALUES ("${userName}","${password}",${age}); `;
+     VALUES ("${user_Name}","${password}",${age}); `;
 
     //  const query =` INSERT INTO users (user_name, password,age)
     //  VALUES ("dfggg","gdsgsdg",15)`;

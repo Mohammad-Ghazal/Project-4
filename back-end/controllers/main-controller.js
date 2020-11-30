@@ -8,7 +8,11 @@ const ARTICLES_TABLE = "articles",
   DESCRIPTION = "description",
   AUTHOR = "author",
   ID = "id",
-  IS_DELETED = "is_deleted";
+  IS_DELETED = "is_deleted",
+  USERS_TABLE="users",
+  USER_NAME = "user_name",
+  PASSWORD = "password",
+  AGE = "age";
 
 //tack what ecxported from Router
 const mainRouter = express.Router();
@@ -57,7 +61,7 @@ const createNewArticle = (req, res) => {
 
     connection.query(query, (err, result) => {
       if (err) throw err;
-      res.json('Success add new article');
+      res.json("Success add new article");
     });
   }
 };
@@ -235,6 +239,26 @@ const changeArticleDescriptionById = (req, res) => {
     );
   });
 };
+
+const createNewUser = (req, res) => {
+  {
+    let { userName, password, age } = req.body;
+    console.log("createNewUser CALLED");
+    console.log(USER_NAME, PASSWORD, AGE,  userName, password, age );
+
+    const query = `INSERT INTO ${USERS_TABLE} (${USER_NAME},${PASSWORD},${AGE})
+     VALUES ("${userName}","${password}",${age}); `;
+
+    //  const query =` INSERT INTO users (user_name, password,age)
+    //  VALUES ("dfggg","gdsgsdg",15)`;
+   
+
+    connection.query(query, (err, result) => {
+      if (err) throw err;
+      res.json("Success add new user");
+    });
+  }
+};
 module.exports = {
   // "getAllArticles":getAllArticles,
   getAllArticles,
@@ -246,6 +270,7 @@ module.exports = {
   recoveryArticleById,
   getAllArticlesByAuthor,
   changeArticleDescriptionById,
+  createNewUser
 };
 
 // function User(firstName,lastName,birth){

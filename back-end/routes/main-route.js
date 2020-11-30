@@ -13,6 +13,7 @@ const {
   recoveryArticleById,
   getAllArticlesByAuthor,
   changeArticleDescriptionById,
+  createNewUser
 } = require("../controllers/main-controller");
 
 mainRouter.get("/", (req, res) => {
@@ -23,6 +24,7 @@ mainRouter.get("/articles", getAllArticles);
 mainRouter.get("/articlesByAuther/:author", getAllArticlesByAuthor);
 
 mainRouter.post("/articles", createNewArticle);
+mainRouter.post("/users", createNewUser);
 
 mainRouter.put("/articles/:id/:newTitle", changeArticleTitleByID);
 mainRouter.put("/articles/:id", changeArticleDescriptionById);

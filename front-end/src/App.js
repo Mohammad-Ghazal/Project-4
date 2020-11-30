@@ -3,17 +3,17 @@ import "./App.css";
 import axios from "axios";
 import Item from "./Item";
 import NewItem from "./NewItem";
+import SignUp from "./SignUp";
+
 export default function App() {
   const [articales, setArticales] = useState([]);
   const [count, setCount] = useState(0);
   let i = 0;
 
-
-
   const addOne = () => {
     setCount(count + 1);
   };
-  
+
   const getAllArticles = () => {
     axios
       .get(`http://localhost:5000/articles`)
@@ -27,7 +27,7 @@ export default function App() {
       });
   };
   const renderArticales = articales.map((art) => {
-    return <Item  artical={art} />;
+    return <Item artical={art} />;
   });
   return (
     <div className="app">
@@ -35,12 +35,14 @@ export default function App() {
       <h1>Conter : : : {count} </h1>
       <button onClick={getAllArticles}>Get articales</button>
       <button onClick={addOne}>plus one</button>
-      <NewItem id = 'addItem' data={articales} />
+
+      <SignUp />
+      <NewItem id="addItem" data={articales} />
 
       {renderArticales}
     </div>
   );
- 
+
   // render(){
   // return (
   //   <div  className="app">

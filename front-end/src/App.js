@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import "./App.css";
 import axios from "axios";
-import Item from "./Item";
-import NewItem from "./NewItem";
+import Article from "./ArticleItem";
+import NewArticle from "./NewArticle";
 import SignUp from "./SignUp";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function App() {
-  const [articales, setArticales] = useState([]);
+  const [articles, setArticles] = useState([]);
   const [count, setCount] = useState(0);
   let i = 0;
 
@@ -20,26 +21,48 @@ export default function App() {
       .then((responce) => {
         console.log("data: " + responce.data);
         //  if(responce.state===200)
-        setArticales(responce.data);
+        setArticles(responce.data);
       })
       .catch((err) => {
         console.log("ERR: ", err);
       });
   };
-  const renderArticales = articales.map((art) => {
-    return <Item artical={art} />;
+  const renderArticles = articles.map((art) => {
+    return <Article  className="col-4 article-item" article={art} />;
+    
   });
   return (
-    <div className="app">
-      <h3>App</h3>
+    <div className="app text-center">
+      <span class="d-block p-2 bg-dark text-white">GHAZAL Project 4-5</span>
+     
+      <h2 className="text-success">Wlecome again</h2>
       <h1>Conter : : : {count} </h1>
-      <button onClick={getAllArticles}>Get articales</button>
-      <button onClick={addOne}>plus one</button>
+      <button className="btn btn-primary" onClick={getAllArticles}>
+        Get articles
+      </button>
+      <button className="btn btn-primary" onClick={addOne}>
+        plus one
+      </button>
+
+
+  <div className="container d-block  bg-dark ">
+        <div className="row">
+          <div className="col bg-primary">1</div>
+          <div className="col bg-secondary">2</div>
+          <div className="col bg-warning">3</div>
+        </div> 
+        <div className="row">
+          <div className="col bg-primary">4</div>
+          <div className="col bg-warning">5</div>
+        </div>
+      </div>
 
       <SignUp />
-      <NewItem id="addItem" data={articales} />
-
-      {renderArticales}
+      <NewArticle id="addItem" data={articles} />
+      <div className="row ">
+          <div className="row">{renderArticles}</div>
+          </div>
+    
     </div>
   );
 

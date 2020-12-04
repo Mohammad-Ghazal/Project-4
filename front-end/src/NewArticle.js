@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React,{ useState } from "react";//{ useState } for use it also
 import axios from "axios";
+
 let id = 0;
-export default function NewItem(props) {
+export default function NewArticle(props) {
   const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState("");//"":initial value
   const [author, setAuthor] = useState("");
 
-  const addNewArtical = () => {
+  
+  const addNewArticle = () => {
     let data = {
       title: title,
       description: description,
@@ -27,10 +29,14 @@ export default function NewItem(props) {
   };
 
   return (
-    <div id={"/i" + id + 1 + "/"} className="new-item">
+
+
+
+
+    <div id={"/i" + id + 1 + "/"} className=" new-article ">
       <h2>New Article</h2>
-      <h1>{props.articales}</h1>
-      <input
+      <h1>{props.articles}</h1>
+      <input className ="m-1"
         onChange={(e) => {
           setTitle(e.target.value);
         }}
@@ -39,7 +45,7 @@ export default function NewItem(props) {
         id={"/t" + id + 1 + "/"}
         placeholder="article title..."
       />
-      <input
+      <input className ="m-1"
         onChange={(e) => {
           setAuthor(e.target.value);
         }}
@@ -48,7 +54,7 @@ export default function NewItem(props) {
         id={"/a" + id + 1 + "/"}
         placeholder="article author..."
       />
-      <textarea
+      <textarea className ="m-1"
         name=""
         onChange={(e) => {
           setDescription(e.target.value);
@@ -58,7 +64,7 @@ export default function NewItem(props) {
         id={"/ds" + id + 1 + "/"}
         placeholder="article description..."
       />
-      <button onClick={addNewArtical}>Add New Artical</button>
+      <button className="btn btn-primary" onClick={addNewArticle}>Add New article</button>
     </div>
   );
 }

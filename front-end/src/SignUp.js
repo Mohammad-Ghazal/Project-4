@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+
+
 let id = 0;
 // const USER_NAME = "user_name",
 //   PASSWORD = "password",
@@ -39,10 +41,10 @@ export default function SignUp(props) {
   };
 
   return (
-    <div className="sign_up">
+    <div className="bg-warning p-3 sign_up">
       <h2>Sign Up</h2>
       <h4>It’s quick and easy.</h4>
-      <input
+      <input className ="m-1"
         onChange={(e) => {
           setUserName(e.target.value);
         }}
@@ -51,7 +53,7 @@ export default function SignUp(props) {
         id={"/t" + id + 1 + "/"}
         placeholder="user name..."
       />
-      <input
+      <input className ="m-1"
         onChange={(e) => {
           setPassword(e.target.value);
         }}
@@ -60,7 +62,7 @@ export default function SignUp(props) {
         id={"/t" + id + 1 + "/"}
         placeholder="password..."
       />
-      <input
+      <input className ="m-1"
         onChange={(e) => {
           setRePassword(e.target.value);
         }}
@@ -69,7 +71,7 @@ export default function SignUp(props) {
         id={"/t" + id + 1 + "/"}
         placeholder="confirm password..."
       />
-      <input
+      <input className ="m-1"
         onChange={(e) => {
           setUserAge(e.target.value);
         }}
@@ -82,7 +84,7 @@ export default function SignUp(props) {
       
       <input id={"/age"+id+1+"/"} inputMode="number">age</input> */}
 
-      <button onClick={signUp}>signUp</button>
+      <button  className="btn btn-primary" onClick={signUp}>signUp</button>
     </div>
   );
 }

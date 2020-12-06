@@ -23,17 +23,53 @@ export default function SignUp(props) {
         password: password,
         age: userAge,
       };
+
+
       axios
-        .post(`http://localhost:5000/users`, data)
-        .then((responce) => {
-          console.log("data: " + responce.data);
-          //  if(responce.state===200)
-          window.confirm("success signUp");
-        })
-        .catch((err) => {
-          console.log("ERR: ", err);
-          window.confirm("faild to signUp "+err);
-        });
+      .post(`http://localhost:5000/login`, data)
+      .then((responce) => {
+        console.log("data responce: " + responce.data);
+        if (responce.data[0].user_name) {
+            window.confirm(
+              "user name exist \n try another username or login if that is your account " + responce.data[0].user_name
+            );
+        } else {
+          
+
+
+
+          axios
+          .post(`http://localhost:5000/users`, data)
+          .then((responce) => {
+            console.log("data: " + responce.data);
+            //  if(responce.state===200)
+            window.confirm("success signUp");
+          })
+          .catch((err) => {
+            console.log("ERR: ", err);
+            window.confirm("faild to signUp "+err);
+          });
+
+
+
+
+
+
+
+
+        }
+      })
+      .catch((err) => {
+        window.confirm("ERR: ", err);
+        console.log(err);
+        //  window.confirm("faild");
+      });
+
+      
+
+
+
+ 
     }
   };
 

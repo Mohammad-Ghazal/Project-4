@@ -4,6 +4,7 @@ import axios from "axios";
 import Article from "./ArticleItem";
 import NewArticle from "./NewArticle";
 import SignUp from "./SignUp";
+import LogIn from "./LogIn";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function App() {
@@ -45,7 +46,7 @@ export default function App() {
       </button>
 
 
-  <div className="container d-block  bg-dark ">
+  {/* <div className="container d-block  bg-dark ">
         <div className="row">
           <div className="col bg-primary">1</div>
           <div className="col bg-secondary">2</div>
@@ -55,8 +56,9 @@ export default function App() {
           <div className="col bg-primary">4</div>
           <div className="col bg-warning">5</div>
         </div>
-      </div>
-
+      </div> */}
+     
+      <LogIn />
       <SignUp />
       <NewArticle id="addItem" data={articles} />
       <div className="row ">

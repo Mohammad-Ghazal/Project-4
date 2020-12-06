@@ -29,11 +29,12 @@ export default function SignUp(props) {
       .post(`http://localhost:5000/login`, data)
       .then((responce) => {
         console.log("data responce: " + responce.data);
+        if(responce.data[0]){
         if (responce.data[0].user_name) {
             window.confirm(
               "user name exist \n try another username or login if that is your account " + responce.data[0].user_name
             );
-        } else {
+        }} else {
           
 
 
@@ -43,7 +44,7 @@ export default function SignUp(props) {
           .then((responce) => {
             console.log("data: " + responce.data);
             //  if(responce.state===200)
-            window.confirm("success signUp");
+            window.confirm("success signUp, "+data.user_name+" you are regetered ");
           })
           .catch((err) => {
             console.log("ERR: ", err);

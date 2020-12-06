@@ -35,7 +35,7 @@ export default function LogIn(props) {
           } else window.confirm("faild");
         })
         .catch((err) => {
-          window.confirm("ERR: ", err);
+          window.confirm("faild to login , user name is not exist ");
           console.log(err);
           //  window.confirm("faild");
         });

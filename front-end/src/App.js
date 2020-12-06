@@ -34,7 +34,7 @@ export default function App() {
   });
   return (
     <div className="app text-center">
-      <span class="d-block p-2 bg-dark text-white">GHAZAL Project 4-5</span>
+      <span className="d-block p-2 bg-dark text-white">GHAZAL Project 4-5</span>
      
       <h2 className="text-success">Wlecome again</h2>
       <h1>Conter : : : {count} </h1>

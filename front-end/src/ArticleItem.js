@@ -28,7 +28,6 @@ if(a)
     else
     window.alert('DELETE DISSMISSD')
     
-    window.location.reload();
    
   };
 

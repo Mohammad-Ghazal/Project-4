@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-
 let id = 0;
 // const USER_NAME = "user_name",
 //   PASSWORD = "password",
@@ -19,24 +18,22 @@ export default function SignUp(props) {
     else if (password !== rePassword) window.confirm("password not identical");
     else if (!userAge) window.confirm("userAge must be set");
     else {
-      
       let data = {
-        user_Name: userName,
+        user_name: userName,
         password: password,
-        age: userAge
+        age: userAge,
       };
       axios
-        .post(`http://localhost:5000/users`,data)
+        .post(`http://localhost:5000/users`, data)
         .then((responce) => {
           console.log("data: " + responce.data);
           //  if(responce.state===200)
-          window.confirm("success");
+          window.confirm("success signUp");
         })
         .catch((err) => {
           console.log("ERR: ", err);
-          window.confirm("faild");
+          window.confirm("faild to signUp "+err);
         });
-      
     }
   };
 
@@ -44,7 +41,8 @@ export default function SignUp(props) {
     <div className="bg-warning p-3 sign_up">
       <h2>Sign Up</h2>
       <h4>It’s quick and easy.</h4>
-      <input className ="m-1"
+      <input
+        className="m-1"
         onChange={(e) => {
           setUserName(e.target.value);
         }}
@@ -53,7 +51,8 @@ export default function SignUp(props) {
         id={"/t" + id + 1 + "/"}
         placeholder="user name..."
       />
-      <input className ="m-1"
+      <input
+        className="m-1"
         onChange={(e) => {
           setPassword(e.target.value);
         }}
@@ -62,7 +61,8 @@ export default function SignUp(props) {
         id={"/t" + id + 1 + "/"}
         placeholder="password..."
       />
-      <input className ="m-1"
+      <input
+        className="m-1"
         onChange={(e) => {
           setRePassword(e.target.value);
         }}
@@ -71,7 +71,8 @@ export default function SignUp(props) {
         id={"/t" + id + 1 + "/"}
         placeholder="confirm password..."
       />
-      <input className ="m-1"
+      <input
+        className="m-1"
         onChange={(e) => {
           setUserAge(e.target.value);
         }}
@@ -84,7 +85,9 @@ export default function SignUp(props) {
       
       <input id={"/age"+id+1+"/"} inputMode="number">age</input> */}
 
-      <button  className="btn btn-primary" onClick={signUp}>signUp</button>
+      <button className="btn btn-primary" onClick={signUp}>
+        signUp
+      </button>
     </div>
   );
 }

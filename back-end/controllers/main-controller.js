@@ -9,7 +9,7 @@ const ARTICLES_TABLE = "articles",
   AUTHOR = "author",
   ID = "id",
   IS_DELETED = "is_deleted",
-  USERS_TABLE="users",
+  USERS_TABLE = "users",
   USER_NAME = "user_name",
   PASSWORD = "password",
   AGE = "age";
@@ -242,22 +242,34 @@ const changeArticleDescriptionById = (req, res) => {
 
 const createNewUser = (req, res) => {
   {
-    let {user_Name, password, age } = req.body;
+    let { user_name, password, age } = req.body;
     console.log("createNewUser CALLED");
-    console.log(USER_NAME, PASSWORD, AGE, user_Name, password, age );
+    console.log(USER_NAME, PASSWORD, AGE, user_name, password, age);
 
     const query = `INSERT INTO ${USERS_TABLE} (${USER_NAME},${PASSWORD},${AGE})
-     VALUES ("${user_Name}","${password}",${age}); `;
+     VALUES ("${user_name}","${password}",${age}); `;
 
     //  const query =` INSERT INTO users (user_name, password,age)
     //  VALUES ("dfggg","gdsgsdg",15)`;
-   
 
     connection.query(query, (err, result) => {
       if (err) throw err;
       res.json("Success add new user");
     });
   }
+};
+
+const LogIn = (req, res) => {
+  let { user_name, password, age } = req.body;
+  console.log("LogIn CALLED");
+  console.log("user_name req : " + user_name);
+
+  const query = `SELECT * FROM ${USERS_TABLE} WHERE ${IS_DELETED} = 0 AND ${USER_NAME}='${user_name}' `;
+  connection.query(query, (err, result) => {
+    if (err) throw err;
+    res.json(result);
+    console.log("result:" + result.data);
+  });
 };
 module.exports = {
   // "getAllArticles":getAllArticles,
@@ -270,7 +282,8 @@ module.exports = {
   recoveryArticleById,
   getAllArticlesByAuthor,
   changeArticleDescriptionById,
-  createNewUser
+  createNewUser,
+  LogIn,
 };
 
 // function User(firstName,lastName,birth){

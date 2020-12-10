@@ -38,12 +38,17 @@
   border-radius: 150px;
   width: 270px;
   height: fit-content;
+  margin: 10px;
+
 
 }
 .buttons-branch{
   display: flex;
   flex-direction: row;
-  align-content: center;
+}
+
+.block{
+  margin: 20px;
 }
 
 

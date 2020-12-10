@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./App.css";
 import axios from "axios";
-import Article from "./ArticleItem";
-import NewArticle from "./NewArticle";
-import SignUp from "./SignUp";
-import LogIn from "./LogIn";
+import Article from "./components/ArticleItem";
+import NewArticle from "./components/NewArticle";
+import SignUp from "./components/SignUp";
+import LogIn from "./components/LogIn";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function App() {
@@ -29,24 +30,60 @@ export default function App() {
       });
   };
   const renderArticles = articles.map((art) => {
-    return <Article  className="col-4 article-item" article={art} />;
-    
+    return <Article className="col-4 article-item" article={art} />;
   });
   return (
-    <div className="app text-center">
-      <span className="d-block p-2 bg-dark text-white">GHAZAL Project 4-5</span>
-     
-      <h2 className="text-success">Wlecome again</h2>
-      <h1>Conter : : : {count} </h1>
-      <button className="btn btn-primary" onClick={getAllArticles}>
-        Get articles
-      </button>
-      <button className="btn btn-primary" onClick={addOne}>
-        plus one
-      </button>
+    <Router>
+      <div className="app text-center">
+        <span className="d-block p-2 bg text-white">GHAZAL Project 4-5</span>
 
+        <h2 className="text-success">Wlecome again</h2>
+        <h1>Conter : : : {count} </h1>
 
-  {/* <div className="container d-block  bg-dark ">
+        <div className="container d-block  bg  block">
+          <div className=" container row f-row">
+            <div className="col -md-2">
+            <form ACTION="/">
+            </form>
+              <button className="btn btn-primary" onClick={getAllArticles}>
+               articles
+              </button>
+          
+            </div>
+
+            <div className="col -md-2">
+              <button className="btn btn-primary" onClick={addOne}>
+                plus one
+              </button>
+            </div>
+
+            <div className="col -md-2">
+              <form ACTION="/newArticles">
+
+              <button className="btn btn-primary" >
+                newArticle
+              </button>
+              </form>
+            </div>
+
+            <div className="col -md-2">
+              <form action="/LogIn">
+                <button className="btn btn-primary">LogIn</button>
+              </form>
+            </div>
+
+            <div className="col -md-2">
+              <form action="/signup">
+                <button className="btn btn-primary">signUp</button>
+              </form>
+            </div>
+          </div>
+          <div className="row ">
+            <div className="row">{renderArticles}</div>
+          </div>
+        </div>
+        {/* 
+        <div className="container d-block  bg-dark ">
         <div className="row">
           <div className="col bg-primary">1</div>
           <div className="col bg-secondary">2</div>
@@ -57,24 +94,19 @@ export default function App() {
           <div className="col bg-warning">5</div>
         </div>
       </div> */}
+        <Route path="/LogIn">
+          <LogIn />
+        </Route>
+        <Route path="/SignUp">
+          <SignUp />
+        </Route>
+        <Route path="/newArticles">
+          <NewArticle id="addItem" data={articles} />
+        </Route>
      
-      <LogIn />
-      <SignUp />
-      <NewArticle id="addItem" data={articles} />
-      <div className="row ">
-          <div className="row">{renderArticles}</div>
-          </div>
-    
-    </div>
+      </div>
+    </Router>
   );
-
-  // render(){
-  // return (
-  //   <div  className="app">
-  //     <h1>HELLO WORLD</h1>
-  //   </div>
-  // );
-  // }
 }
 
 /* 

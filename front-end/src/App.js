@@ -7,15 +7,30 @@ import NewArticle from "./components/NewArticle";
 import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "alertifyjs/build/alertify.min.js";
 
 export default function App() {
+  
+
   const [articles, setArticles] = useState([]);
   const [count, setCount] = useState(0);
+  const[search,setSearch]=useState('');
+  const [allArticales, setAllArticales] = useState([])
+
   let i = 0;
 
   const addOne = () => {
+
+
     setCount(count + 1);
   };
+  
+  const searchNow = () => {
+
+   console.log(articles);
+  }
+
+  
 
   const getAllArticles = () => {
     axios
@@ -48,7 +63,7 @@ export default function App() {
               <button className="btn btn-primary" onClick={getAllArticles}>
                articles
               </button>
-          
+
             </div>
 
             <div className="col -md-2">
@@ -64,6 +79,8 @@ export default function App() {
                 newArticle
               </button>
               </form>
+              <input id='searchInput' type="input text" onChange={search} herf="serch" />
+
             </div>
 
             <div className="col -md-2">
@@ -77,9 +94,13 @@ export default function App() {
                 <button className="btn btn-primary">signUp</button>
               </form>
             </div>
+
+
+
           </div>
           <div className="row ">
             <div className="row">{renderArticles}</div>
+            
           </div>
         </div>
         {/* 
@@ -107,6 +128,13 @@ export default function App() {
       </div>
     </Router>
   );
+
+ 
+
+
+
+
+
 }
 
 /* 

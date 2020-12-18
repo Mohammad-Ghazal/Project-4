@@ -14,7 +14,8 @@ const {
   getAllArticlesByAuthor,
   changeArticleDescriptionById,
   createNewUser,
-  LogIn
+  LogIn,
+  getWeather
 } = require("../controllers/main-controller");
 
 mainRouter.get("/", (req, res) => {
@@ -35,5 +36,8 @@ mainRouter.put("/articles/:id", changeArticleAuthorById);
 mainRouter.delete("/articles/:id", deleteArticleById);
 mainRouter.delete("/articles/", deleteArticleByAuthor);
 mainRouter.put("/articlesre/:id", recoveryArticleById);
+
+
+mainRouter.get("/getWeather",getWeather);
 
 module.exports = mainRouter;

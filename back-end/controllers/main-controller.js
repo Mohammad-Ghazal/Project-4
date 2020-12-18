@@ -1,7 +1,9 @@
+const { default: Axios } = require("axios");
 const { compareSync } = require("bcrypt");
 const express = require("express");
 const { query } = require("../db");
 const connection = require("../db");
+const request = require("request");
 
 const ARTICLES_TABLE = "articles",
   TITLE = "title",
@@ -271,6 +273,19 @@ const LogIn = (req, res) => {
     console.log("result:" + result.data);
   });
 };
+
+const getWeather = (req, res) => {
+  //api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
+  request(
+    'http://api.openweathermap.org/data/2.5/weather?q=amman&appid=c7550cbd97dc572a894f89aff414ee17',
+    function (error, response, body) {
+      console.error("error:", error); // Print the error if one occurred
+      console.log("statusCode:", response && response.statusCode); // Print the response status code if a response was received
+      console.log("body:", body); // Print the HTML for the Google homepage.
+      res.json(body);
+    }
+  );
+};
 module.exports = {
   // "getAllArticles":getAllArticles,
   getAllArticles,
@@ -284,6 +299,7 @@ module.exports = {
   changeArticleDescriptionById,
   createNewUser,
   LogIn,
+  getWeather,
 };
 
 // function User(firstName,lastName,birth){
